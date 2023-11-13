@@ -75,15 +75,6 @@ def load_data(dir_path: str = "brain_tumor_dataset",
     if verbose:
         print(f"Classes are {encoder.classes_}")
 
-    print(labels[0:5])
-
-    for img in images[0:5]:
-        img = image.array_to_img(img)
-        plt.imshow(img)
-        plt.show()
-
-
-
     return files, labels, images
 
 
@@ -218,5 +209,6 @@ def find_boundary_points(muba_df,
                 boundary_points_df = pd.concat([boundary_points_df, row],axis=0, ignore_index=True)
             
     return boundary_points_df
+
 
 
