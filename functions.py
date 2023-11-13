@@ -75,6 +75,15 @@ def load_data(dir_path: str = "brain_tumor_dataset",
     if verbose:
         print(f"Classes are {encoder.classes_}")
 
+    print(labels[0:5])
+
+    for img in images[0:5]:
+        img = image.array_to_img(img)
+        plt.imshow(img)
+        plt.show()
+
+
+
     return files, labels, images
 
 
@@ -96,6 +105,9 @@ def make_predictions(images, model, temp_model):
     final_layers = temp_model.predict(np.stack(images))
     predictions = model.predict(np.stack(images))
     pred_array = [[0,1][np.argmax(individual_result)] for individual_result in predictions]
+
+    print(predictions[0:5])
+    print(pred_array[0:5])
 
     return final_layers, predictions, pred_array
 
@@ -128,6 +140,7 @@ def create_mixup_images(class_zero_df,
                 lam = (1/MUBA_ITERS) * np.random.rand() + ( (i) / MUBA_ITERS)
                 new_img = lam * images[int(row0["image_index"])] + (1 - lam) * images[int(row1["image_index"])]
 
+                # lam = proportion no tumour
                 label = 1
                 if lam > 0.5:
                     label = 0
